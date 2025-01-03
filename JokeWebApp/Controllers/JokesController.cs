@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JokeWebApp.Data;
 using JokeWebApp.Models;
+using JokeWebApp.Repository;
+using JokeWebApp.Service;
+using JokeWebApp.Interface;
 
 namespace JokeWebApp.Controllers
 {
     public class JokesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IJokeRepository _jokeRepository;
+        private readonly IJokeService _jokeService;
 
-        public JokesController(ApplicationDbContext context)
+        public JokesController(ApplicationDbContext context, IJokeRepository jokeRepository, IJokeService jokeService)
         {
             _context = context;
+            _jokeRepository = jokeRepository;
+            _jokeService = jokeService;
         }
 
         // GET: Jokes
@@ -31,9 +38,9 @@ namespace JokeWebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
+        public async Task<Joke> ShowSearchResults(string SearchPhrase)
         {
-            return View("Index",  await _context.Joke.Where(x => x.JokeQuestion.Contains(SearchPhrase)).ToListAsync());
+            return await _jokeService.GetJokeBySearch(SearchPhrase);
         }
 
         // GET: Jokes/Details/5

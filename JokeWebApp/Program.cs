@@ -1,4 +1,7 @@
 using JokeWebApp.Data;
+using JokeWebApp.Interface;
+using JokeWebApp.Repository;
+using JokeWebApp.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IJokeService, JokeService>();
+builder.Services.AddScoped<IJokeRepository, JokeRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
