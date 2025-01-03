@@ -1,7 +1,5 @@
-﻿using JokeWebApp.Controllers;
-using JokeWebApp.Interface;
+﻿using JokeWebApp.Interface;
 using JokeWebApp.Models;
-using JokeWebApp.Repository;
 
 namespace JokeWebApp.Service
 {

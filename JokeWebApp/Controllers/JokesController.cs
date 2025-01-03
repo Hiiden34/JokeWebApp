@@ -38,9 +38,9 @@ namespace JokeWebApp.Controllers
             return View();
         }
 
-        public async Task<Joke> ShowSearchResults(string SearchPhrase)
+        public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
         {
-            return await _jokeService.GetJokeBySearch(SearchPhrase);
+            return View("Index", new List<Joke>{await _jokeService.GetJokeBySearch(SearchPhrase) });
         }
 
         // GET: Jokes/Details/5

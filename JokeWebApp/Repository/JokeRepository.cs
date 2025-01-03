@@ -2,6 +2,7 @@
 using JokeWebApp.Interface;
 using JokeWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Permissions;
 
 namespace JokeWebApp.Repository
 {
@@ -16,7 +17,8 @@ namespace JokeWebApp.Repository
 
         public async Task<Joke?> GetJokeDetail(string input)
         {
-            return await _context.Joke.FirstOrDefaultAsync(x => x.JokeQuestion.Contains(input));
+            return await _context.Joke
+                .Where(x => x.JokeQuestion.Contains(input)).FirstOrDefaultAsync();
         }
     }
 }
