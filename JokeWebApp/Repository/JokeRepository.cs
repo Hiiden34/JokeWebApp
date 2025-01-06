@@ -15,10 +15,10 @@ namespace JokeWebApp.Repository
             _context = context;
         }
 
-        public async Task<Joke?> GetJokeDetail(string input)
+        public async Task<List<Joke>> GetJokeDetail(string input)
         {
             return await _context.Joke
-                .Where(x => x.JokeQuestion.Contains(input)).FirstOrDefaultAsync();
+                .Where(x => x.JokeQuestion.Contains(input)).ToListAsync();
         }
     }
 }

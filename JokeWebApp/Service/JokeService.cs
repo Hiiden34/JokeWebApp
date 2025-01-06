@@ -1,5 +1,7 @@
 ﻿using JokeWebApp.Interface;
 using JokeWebApp.Models;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol.Core.Types;
 
 namespace JokeWebApp.Service
 {
@@ -12,17 +14,17 @@ namespace JokeWebApp.Service
             _jokeRepository = jokeRepository;
         }
 
-        public async Task<Joke> GetJokeBySearch(string input)
+        public async Task<List<Joke>> GetJokeBySearch(string input)
         {
-            Joke? jokes = await _jokeRepository.GetJokeDetail(input);
+             List<Joke> jokes = await _jokeRepository.GetJokeDetail(input);
 
-            if(jokes is not null)
+            if(jokes.Count != 0)
             {
                 return jokes;
             }
             else
             {
-                return new();
+                return [];
             }
         }
 

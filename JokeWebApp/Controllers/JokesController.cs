@@ -10,6 +10,7 @@ using JokeWebApp.Models;
 using JokeWebApp.Repository;
 using JokeWebApp.Service;
 using JokeWebApp.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JokeWebApp.Controllers
 {
@@ -40,7 +41,7 @@ namespace JokeWebApp.Controllers
 
         public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
         {
-            return View("Index", new List<Joke>{await _jokeService.GetJokeBySearch(SearchPhrase) });
+            return View("Index", await _jokeService.GetJokeBySearch(SearchPhrase));
         }
 
         // GET: Jokes/Details/5
@@ -62,6 +63,7 @@ namespace JokeWebApp.Controllers
         }
 
         // GET: Jokes/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -70,6 +72,7 @@ namespace JokeWebApp.Controllers
         // POST: Jokes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
@@ -154,6 +157,7 @@ namespace JokeWebApp.Controllers
 
         // POST: Jokes/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

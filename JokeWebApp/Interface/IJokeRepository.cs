@@ -4,6 +4,6 @@ namespace JokeWebApp.Interface
 {
     public interface IJokeRepository
     {
-        Task<Joke?> GetJokeDetail(string input);
+        Task<List<Joke>> GetJokeDetail(string input);
     }
 }
